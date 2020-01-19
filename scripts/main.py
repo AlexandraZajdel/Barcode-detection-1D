@@ -53,18 +53,20 @@ if __name__ == "__main__":
             img_orig = cv2.imread(filepath)
             img_processed = image_preprocessing(img_orig)
             box = find_bounding_box(img_processed)
+
             if box is not None:
-                # image_new = img_orig[box]
                 img_box = cv2.drawContours(img_orig, [box], -1, (0, 255, 0), 3)
+                
+                if args['save_directory'] != None:
+                    save_image(img_box, args['save_directory'], 
+                               os.path.basename(filepath))
+
                 cv2.imshow("Barcode detection", img_box)
                 key = cv2.waitKey(0)
                 if key == ord('q'):
                     continue
                 elif key == ord('e'):
                     break
-                if args['save_directory'] != None:
-                    save_image(img_box, args['save_directory'], 
-                               os.path.basename(filepath))
 
             else: logging.info(f'\tNo barcode detected for: {os.path.basename(filepath)}')
 
