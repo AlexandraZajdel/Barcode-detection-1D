@@ -13,11 +13,13 @@ from detection import find_bounding_box
 
 def command_line_args():
     parser = argparse.ArgumentParser(prog='Barcode 1D detection',
-                                     description='Detect the barcode in the image using image processing techniques')
+                                     description='Detect the barcode in the image \
+                                        using image processing techniques')
     parser.add_argument("-m", "--mode",
                         required=True,
                         choices=['Locally', 'Real-time'],
-                        help='Choose a mode for program - load local images or run real-time detection using web camera')
+                        help='Choose a mode for program - load local images or \
+                            run real-time detection using web camera')
     parser.add_argument("-d", "--data_directory",
                         required=('--mode' == 'Locally'),
                         type=str,
@@ -30,7 +32,6 @@ def command_line_args():
     return args
 
 def save_image(image, directory, filename):
-    # TO DO: merge image and contour to save them together
     cv2.imwrite(os.path.join(directory, filename), image)
     logging.info(f'\tProcessed image saved in: {directory}')
 
@@ -40,8 +41,9 @@ if __name__ == "__main__":
     args = command_line_args()
 
     if args['mode'] == 'Locally':
-        logging.info(f'\tLocal images detection mode.\
-                    \nPress Q to move on to the next image.')
+        logging.info(f'\nLocal images detection mode.\
+                    \nPress Q to move on to the next image.\
+                    \nPress E to exit.')
 
         extensions = ['png', 'jpg', 'gif', 'jpeg']
         files = []
@@ -54,13 +56,17 @@ if __name__ == "__main__":
             img_processed = image_preprocessing(img_orig)
             box = find_bounding_box(img_processed)
             if box is not None:
-                # show_image(img_orig, box)
                 img_box = cv2.drawContours(img_orig, [box], -1, (0, 255, 0), 3)
                 cv2.imshow("Barcode detection", img_box)
-                if args['save_directory'] != None:
-                    save_image(img_box, args['save_directory'], os.path.basename(filepath))
-                if cv2.waitKey(20) == ord('q'):
+                key = cv2.waitKey(0)
+                if key == ord('q'):
+                    continue
+                elif key == ord('e'):
                     break
+                if args['save_directory'] != None:
+                    save_image(img_box, args['save_directory'], 
+                               os.path.basename(filepath))
+
             else: logging.info(f'\tNo barcode detected for: {os.path.basename(filepath)}')
 
     elif args['mode'] == 'Real-time':

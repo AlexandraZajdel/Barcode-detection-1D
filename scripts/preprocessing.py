@@ -13,12 +13,10 @@ def image_preprocessing(image):
     image = cv2.convertScaleAbs(image)
 
     # denoising
-    # image = cv2.blur(image, (9,9)) # TO DO: find the difference between blur and gaussianBlur
-    image = cv2.GaussianBlur(image, (9, 9), 1)
+    image = cv2.GaussianBlur(image, (9, 9), 2)
 
-    _, image = cv2.threshold(image, 225, 225, cv2.THRESH_BINARY)
-    # maybe adaptive treshold
-    # image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,3,0)
+    # thresholding
+    _, image = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY)
 
     # find rectangle
     # construct a closing kernel and apply it to the thresholded image
@@ -28,6 +26,5 @@ def image_preprocessing(image):
     # perform a series of erosions and dilations
     image = cv2.erode(image, None, iterations=4)
     image = cv2.dilate(image, None, iterations=4)
-    # cv2.imshow('preprocessed4', image)
 
     return image
