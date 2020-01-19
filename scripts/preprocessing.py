@@ -16,7 +16,7 @@ def image_preprocessing(image):
     image = cv2.GaussianBlur(image, (9, 9), 2)
 
     # thresholding
-    _, image = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY)
+    _, image = cv2.threshold(image, 210, 255, cv2.THRESH_BINARY)
 
     # find rectangle
     # construct a closing kernel and apply it to the thresholded image

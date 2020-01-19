@@ -1,15 +1,13 @@
 import os
-import sys
 import glob
 import argparse
 import logging
 
-import keyboard
 import cv2
 import numpy as np
 
 from preprocessing import image_preprocessing
-from detection import find_bounding_box
+from detection import find_bounding_box, decode_barcode
 
 def command_line_args():
     parser = argparse.ArgumentParser(prog='Barcode 1D detection',
@@ -56,6 +54,7 @@ if __name__ == "__main__":
             img_processed = image_preprocessing(img_orig)
             box = find_bounding_box(img_processed)
             if box is not None:
+                # image_new = img_orig[box]
                 img_box = cv2.drawContours(img_orig, [box], -1, (0, 255, 0), 3)
                 cv2.imshow("Barcode detection", img_box)
                 key = cv2.waitKey(0)
@@ -80,10 +79,10 @@ if __name__ == "__main__":
 
             if box is not None:
                 cv2.drawContours(frame, [box], -1, (0, 255, 0), 3)
-                cv2.imshow("Barcode detection", frame)
-                if cv2.waitKey(20) & 0xFF == ord('q'):
-                    break
-            else: continue
+
+            cv2.imshow("Barcode detection", frame)
+            if cv2.waitKey(20) & 0xFF == ord('q'):
+                break
 
         stream.release()
 
