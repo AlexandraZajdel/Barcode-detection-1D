@@ -2,14 +2,27 @@
 Detect barcode in the image or via web camera. Use image processing techniques. 
 
 ## Description
-First of all, the input image is preprocessed using Sobel filter, Gaussian blur, binary thresholding and series of erosions and dilations.
-After finding rectangles in the image 
+An input image is preprocessed according to the methodology listed below:
+1) Grayscale image
+2) Gradient calculation using Sobel filter
+3) Gaussian blur (9x9 kernel)
+4) Binary threshold at 220 intensity
+5) Morphology using 21x7 kernel as structuring element
+6) Series of erosion and dilation.
+
+In the next step, the biggest rectangle countour is found using <b>findcontours()</b> from OpenCV library. 
+
+Only one barcode in the image is recommended. 
 
 ## Sneak Peek
-<img src="results/example1.jpg" width=300>
+<p float="left">
+<img src="results/example1.jpg" width=300> 
 <img src="results/example2.jpg" width=300>
-<img src="results/example3.png" width=300>
+</p>
+<p float="left">
+<img src="results/example3.png" width=300> 
 <img src="results/example4.jpg" width=300>
+</p>
 
 ### Real-time results
 
