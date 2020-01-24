@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 
 from preprocessing import image_preprocessing
-from detection import find_bounding_box, decode_barcode
+from detection import find_bounding_box
 
 def command_line_args():
     parser = argparse.ArgumentParser(prog='Barcode 1D detection',

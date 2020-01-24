@@ -17,10 +17,3 @@ def find_bounding_box(image):
     
     # return only one (the largest) bounding box
     return box
-
-def decode_barcode(image):
-    decoded_objects = pyzbar.decode(image)
-
-    for obj in decoded_objects:
-        print('Type : ', obj.type)
-        print('Data : ', obj.data, '\n')

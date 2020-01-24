@@ -23,7 +23,7 @@ def image_preprocessing(image):
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (21, 7))
     image = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
 
-    # perform a series of erosions and dilations
+    # perform series of erosions and dilations
     image = cv2.erode(image, None, iterations=4)
     image = cv2.dilate(image, None, iterations=4)
 
