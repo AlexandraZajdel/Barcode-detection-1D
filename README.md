@@ -29,7 +29,6 @@ Barcode_detection/
 
 ```
 
-
 ## Setup 
 To run this project on <b> Linux</b> type in your terminal:
 
