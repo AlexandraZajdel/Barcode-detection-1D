@@ -8,12 +8,11 @@ def find_bounding_box(image):
         # if there is no rectangles
         return None
 
-    contours = sorted(contours, key=cv2.contourArea, reverse=True)[0]
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)
 
     # compute the rotated bounding box of the largest contour
-    rect = cv2.minAreaRect(contours)
-    box = cv2.boxPoints(rect)
-    box = np.int0(box)
-    
+    rect = cv2.minAreaRect(contours[0])
+    box = np.int0(cv2.boxPoints(rect))
+
     # return only one (the largest) bounding box
     return box

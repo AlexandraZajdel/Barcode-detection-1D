@@ -25,6 +25,7 @@ Only one barcode in the image is recommended.
 </p>
 
 ### Real-time results
+<img src="results/video.gif" width=300>
 
 ## Project structure 
 ```bash
